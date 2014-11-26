@@ -1,0 +1,25 @@
+brew install sbt
+ 
+download kafka 
+ 
+tar -zxvf kafka_2.9.2-0.8.1.1.tgz -C /usr/local/
+cd /usr/local/kafka_2.9.2-0.8.1.1
+ 
+sbt update
+sbt package
+ 
+cd /usr/local
+ln -s kafka_2.9.2-0.8.1.1 kafka
+ 
+echo "" >> ~/.bash_profile
+echo "" >> ~/.bash_profile
+echo "# KAFKA" >> ~/.bash_profile
+echo "export KAFKA_HOME=/usr/local/kafka" >> ~/.bash_profile
+source ~/.bash_profile
+ 
+echo "export KAFKA=$KAFKA_HOME/bin" >> ~/.bash_profile
+echo "export KAFKA_CONFIG=$KAFKA_HOME/config" >> ~/.bash_profile
+source ~/.bash_profile
+ 
+$KAFKA/zookeeper-server-start.sh $KAFKA_CONFIG/zookeeper.properties
+$KAFKA/kafka-server-start.sh $KAFKA_CONFIG/server.properties
